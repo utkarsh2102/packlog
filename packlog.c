@@ -1,6 +1,8 @@
+#include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/vmalloc.h>
+#include <linux/version.h>
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
 
@@ -27,7 +29,13 @@ static int init_filter_if(void) {
   nfho.hooknum = 0;
   nfho.pf = PF_INET;
   nfho.priority = NF_IP_PRI_FIRST;
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,13,0)
+  nf_register_net_hook(&init_net, &nfho);
+#else
   nf_register_hook(&nfho);
+#endif
+
   return 0;
 }
 
@@ -38,6 +46,11 @@ int init_module(void) {
 }
 
 void cleanup_module(void) {
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,13,0)
+  nf_unregister_net_hook(&init_net, &nfho);
+#else
   nf_unregister_hook(&nfho);
+#endif
+
   printk(KERN_INFO "Module cleaned up.\n");
 }
