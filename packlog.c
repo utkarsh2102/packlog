@@ -4,6 +4,10 @@
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
 
+MODULE_LICENSE("MIT");
+MODULE_AUTHOR("Utkarsh Gupta");
+MODULE_DESCRIPTION("Logging incoming packaets.");
+
 static struct nf_hook_ops nfho;
 
 uint64_t counter = 0;
