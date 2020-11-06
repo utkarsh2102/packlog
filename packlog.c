@@ -14,6 +14,7 @@ static struct nf_hook_ops nfho;
 
 uint64_t counter = 0;
 
+/*
 unsigned int my_hook(unsigned int hooknum,
     struct sk_buff *skb,
     const struct net_device *in,
@@ -22,6 +23,13 @@ unsigned int my_hook(unsigned int hooknum,
       struct sock *sk = skb->sk;
       printk("Packet's here!");
       return NF_ACCEPT;
+}
+*/
+
+unsigned int my_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
+  struct sock *sk = skb->sk;
+  printk("Hello packet number %llu", ++counter);
+  return NF_ACCEPT;
 }
 
 static int init_filter_if(void) {
