@@ -10,12 +10,14 @@ MODULE_LICENSE("MIT");
 MODULE_AUTHOR("Utkarsh Gupta");
 MODULE_DESCRIPTION("Logging incoming packaets.");
 
+// default struct for Netfilter hook option
 static struct nf_hook_ops nfho;
 
+// packet counter
 uint64_t counter = 0;
 
 /*
-unsigned int my_hook(unsigned int hooknum,
+unsigned int tmp_hook(unsigned int hooknum,
     struct sk_buff *skb,
     const struct net_device *in,
     const struct net_device *out,
@@ -26,15 +28,15 @@ unsigned int my_hook(unsigned int hooknum,
 }
 */
 
-unsigned int my_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
+unsigned int tmp_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
   struct sock *sk = skb->sk;
   printk("Hello packet number %llu", ++counter);
   return NF_ACCEPT;
 }
 
 static int init_filter_if(void) {
-  nfho.hook = my_hook;
-  nfho.hooknum = 0;
+  nfho.hook = tmp_hook;
+  nfho.hooknum = 0; // for NF_IP_PRE_ROUTING (used interchangably!)
   nfho.pf = PF_INET;
   nfho.priority = NF_IP_PRI_FIRST;
 
@@ -59,6 +61,5 @@ void cleanup_module(void) {
 #else
   nf_unregister_hook(&nfho);
 #endif
-
   printk(KERN_INFO "Module cleaned up.\n");
 }
