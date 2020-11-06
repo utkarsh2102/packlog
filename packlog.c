@@ -1,4 +1,3 @@
-#include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/vmalloc.h>
@@ -16,20 +15,8 @@ static struct nf_hook_ops nfho;
 // packet counter
 uint64_t counter = 0;
 
-/*
-unsigned int tmp_hook(unsigned int hooknum,
-    struct sk_buff *skb,
-    const struct net_device *in,
-    const struct net_device *out,
-    int (*okfn)(struct sk_buff *))  {
-      struct sock *sk = skb->sk;
-      printk("Packet's here!");
-      return NF_ACCEPT;
-}
-*/
-
 unsigned int tmp_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state) {
-  struct sock *sk = skb->sk;
+  // struct sock *sk = skb->sk;
   printk("Hello packet number %llu", ++counter);
   return NF_ACCEPT;
 }
