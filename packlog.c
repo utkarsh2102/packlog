@@ -39,7 +39,7 @@ static int init_filter_if(void) {
 
 int init_module(void) {
     init_filter_if(); // call the init_filter_if for initialization
-    printk(KERN_INFO "Module initialized.\n");
+    printk(KERN_INFO "packlog module initialized.\n");
     return 0;
 }
 
@@ -49,5 +49,5 @@ void cleanup_module(void) {
 #else
   nf_unregister_hook(&nfho); // unregistering the hook here
 #endif
-  printk(KERN_INFO "Module cleaned up.\n");
+  printk(KERN_INFO "packlog module removed.\n");
 }
