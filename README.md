@@ -1,6 +1,6 @@
 ## packlog: Log your Packets! \o/
 
-`packlog` is a simple kernel module which will log all your incoming packets, one-by-one. What for? Nothing, but fun!  
+`packlog` is a simple kernel module that will log all your incoming packets, one-by-one. What for? Nothing, but fun!  
 With this, you can see how many packets are being transferred when you make a simple HTTP(S) request, or even otherwise.
 
 ---
@@ -37,16 +37,16 @@ Now since we have `packlog.ko` ready, let's use it!
     $ sudo insmod packlog.ko
     ```
 
-- Now that the module is intialized, let's see the incoming packets:
+- Now that the module is initialized, let's see the incoming packets:
     ```bash
     $ sudo dmesg | tail
     ```
 
-- At this point, you'll see some packets already have started to get logged. Let's make a HTTP request now and see what happens. Open Firefox and open any site, or type the following in another terminal:
+- At this point, you'll see some packets already have started to get logged. Let's make an HTTP request now and see what happens. Open Firefox and open any site, or type the following in another terminal:
     ```bash
     $ firefox utkarsh2102.com
     ```
-    You'll see a spike in the number of packets. Obviously, eh? But fun, isn't it? But can you guess why the number of packets keep increasing? Which packets are these? Any idea? ^.^
+    You'll see a spike in the number of packets. Obviously, eh? But fun, isn't it? But can you guess why the number of packets keeps increasing? Which packets are these? Any idea? ^.^
 
 - Anyway, now that fun time's over, let's remove the inserted module:
     ```bash
@@ -81,7 +81,7 @@ Let's find out!
     $ sudo insmod packlog.ko
     ```
 
-- Step 4: Ensure that the module has been initialzed.
+- Step 4: Ensure that the module has been initialized.
     ```bash
     $ sudo dmesg | tail
     ```
@@ -104,4 +104,4 @@ Let's find out!
 ## Copyright and Credits
 
 Open-sourced under the [MIT License](https://github.com/utkarsh2102/packlog/blob/master/LICENSE).  
-Whilt this has been written from scratch but hanks to Julia Evans, Reuven Plevinsky, and Haoyuan Ge for some of their articles and explanations on some of the related topics.
+Whilst this has been written from scratch but thanks to Julia Evans, Reuven Plevinsky, and Haoyuan Ge for some of their articles and explanations on some of the related topics.
