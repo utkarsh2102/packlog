@@ -5,7 +5,7 @@ With this, you can see how many packets are being transferred when you make a si
 
 ---
 
-### Compiling
+## Compiling
 
 Well, we use `make` for compiling, so that's something your system should have.  
 Maybe you'll also need the `build-essential` package, which is readily available to install via your package manager.
@@ -28,7 +28,7 @@ From [StackOverflow](https://stackoverflow.com/a/10477109),
 
 ---
 
-### Using
+## Using
 
 Now since we have `packlog.ko` ready, let's use it!
 
@@ -54,6 +54,47 @@ Now since we have `packlog.ko` ready, let's use it!
     ```
 
 - Finally, check the `dmesg` logs to ensure that the module has been removed:
+    ```bash
+    $ sudo dmesg | tail
+    ```
+
+---
+
+## DIY Time
+
+Want to do something fun? Let's drop all the incoming packets. What do you think will happen?
+
+Let's find out!
+
+- Step 1: In the `tmp_hook` function in `packlog.c`, change `NF_ACCEPT` to `NF_DROP`. Or use the following command:
+    ``` bash
+    $ sed -i 's/NF_ACCEPT/NF_DROP/g' packlog.c
+    ```
+
+- Step 2: Recompile.
+    ```bash
+    $ make
+    ```
+
+- Step 3: Re-insert the compiled module.
+    ```bash
+    $ sudo insmod packlog.ko
+    ```
+
+- Step 4: Ensure that the module has been initialzed.
+    ```bash
+    $ sudo dmesg | tail
+    ```
+
+- Step 5: Shoot up your browser and try to access any site.  
+  What happens? Does it work as usual? Why? Why not? What do you think? ^_^
+
+- Step 6: Okay, great stuff. But let's go back to our sane life.
+    ```bash
+    $ sudo rmmod packlog
+    ```
+
+- Step 7: Lastly, ensure that the module has indeed been removed.
     ```bash
     $ sudo dmesg | tail
     ```
