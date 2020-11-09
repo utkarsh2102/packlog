@@ -100,3 +100,8 @@ Let's find out!
     ```
 
 ---
+
+## Copyright and Credits
+
+Open-sourced under the [MIT License](https://github.com/utkarsh2102/packlog/blob/master/LICENSE).  
+Whilt this has been written from scratch but hanks to Julia Evans, Reuven Plevinsky, and Haoyuan Ge for some of their articles and explanations on some of the related topics.
